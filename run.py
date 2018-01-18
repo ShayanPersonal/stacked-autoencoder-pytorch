@@ -11,6 +11,7 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision.utils import save_image
 
 from model import StackedAutoEncoder
+#from utils import YoutubeDataLoader
 
 if not os.path.exists('./imgs'):
     os.mkdir('./imgs')
@@ -28,6 +29,7 @@ img_transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
+#dataset = YoutubeDataLoader('../data/youtube8m/')
 dataset = CIFAR10('../data/cifar10/', transform=img_transform)
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8)
 
