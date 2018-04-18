@@ -3,29 +3,6 @@ from torch import nn
 from torch.autograd import Variable
 import torch.nn.functional as F
 
-class MTRNN(nn.Module):
-    r"""
-    Use a multi-timescale recurrent neural network for the hippocampus? In-progress
-    """
-    def __init__(self, input_size, slow_size, fast_size):
-        super(MTRNN, self).__init__()
-        self.input_size = input_size
-        self.slow_size = slow_size
-        self.fast_size = fast_size
-        self.input_slow_syn = nn.Linear(input_size, slow_size)
-        self.input_fast_syn = nn.Linear(slow_size, fast_size)
-
-    def forward(self, x):
-        x0 = x[0]
-        fast_activations = F.relu(self.input_slow_syn(x0))
-        slow_activations = F.relu(self.input_fast_syn(fast_activations))
-
-        for xt in x[1:]:
-            fast_activations = F.relu(self.input_slow_syn(xt) + 0.5*fast_activations)
-            slow_activations = F.relu(self.input_fast_syn(fast_activations) + 0.95*slow_activations)
-
-        return slow_activations, fast_activations
-
 
 class CDAutoEncoder(nn.Module):
     r"""
