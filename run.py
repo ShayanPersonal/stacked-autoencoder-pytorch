@@ -11,7 +11,6 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision.utils import save_image
 
 from model import StackedAutoEncoder
-#from utils import YoutubeDataLoader
 
 if not os.path.exists('./imgs'):
     os.mkdir('./imgs')
@@ -29,7 +28,6 @@ img_transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-#dataset = YoutubeDataLoader('../data/youtube8m/')
 dataset = CIFAR10('../data/cifar10/', transform=img_transform)
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8)
 
@@ -78,7 +76,7 @@ for epoch in range(num_epochs):
     print("Feature Statistics\tMean: {:.4f}\t\tMax: {:.4f}\t\tSparsity: {:.4f}%".format(
         torch.mean(features.data), torch.max(features.data), torch.sum(features.data > 0.0)*100 / features.data.numel())
     )
-    print("Linear classifier performance: {:.4f}%".format(correct / (len(dataloader)*batch_size)))
+    print("Linear classifier performance: {}/{} = {:.2f}%".format(correct, len(dataloader)*batch_size, 100*float(correct) / (len(dataloader)*batch_size)))
     print("="*80)
 
 torch.save(model.state_dict(), './CDAE.pth')
