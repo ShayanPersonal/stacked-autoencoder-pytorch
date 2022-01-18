@@ -5,7 +5,7 @@ This model performs unsupervised reconstruction of the input using a setup simil
 Instead of training layers one at a time, I allow them to train at the same time. Each is trained locally and no backpropagation is used.
 The autoencoder is denoising as in http://machinelearning.org/archive/icml2008/papers/592.pdf and convolutional. ReLU activation function is used.
 
-The quality of the feature vector is tested with a linear classifier reinitialized every 10 epochs.
+The quality of the feature vector is tested with a linear classifier reinitialized every 10 epochs. This is a toy model and you shouldn't expect results competitive to a model trained with supervised learning. You can try adding more layers and play around with adding more noise or regularization if better accuracy is desired.
 
 Setup:
 - Python 3
